@@ -1,20 +1,32 @@
 const express = require('express');
 const router = express.Router();
 
-// Importa o middleware de autenticação do módulo de auth
+//  Importa o middleware de autenticação
 const { authenticate } = require('../auth/auth.middleware');
 
-// Importa o controller e o upload do service
-const { createCertificate, getUserCertificates } = require('./certificates.controller');
+//  Importa controller (regras de negócio)
+const {
+  createCertificate,
+  getUserCertificates
+} = require('./certificates.controller');
+
+//  Importa o upload (multer)
 const { upload } = require('./certificates.service');
 
-// Aplica o authenticate em todas as rotas — só usuário logado acessa
+
 router.use(authenticate);
 
-// POST /certificates — envia um novo atestado com arquivo
-router.post('/', upload.single('arquivo'), createCertificate);
+// Envia um novo atestado com arquivo
+router.post(
+  '/',
+  upload.single('file'), // ⚠️ padrão: "file" (tem que ser igual no Postman/frontend)
+  createCertificate
+);
 
-// GET /certificates — lista os atestados do usuário logado
-router.get('/', getUserCertificates);
+// Lista os atestados do usuário logado
+router.get(
+  '/',
+  getUserCertificates
+);
 
 module.exports = router;
