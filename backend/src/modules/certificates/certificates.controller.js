@@ -30,7 +30,7 @@ async function createCertificate(req, res) {
         const certificate = await prisma.medicalCertificate.create({
             data: {
                 startDate: new Date(startDate),
-                durationDays: Number(durationDays),
+                endDate: new Date(new Date(startDate).getTime() + Number(durationDays) * 24 * 60 * 60 * 1000),
                 crmNumber,
                 // Ajuste importante para acesso via navegador/frontend
                 fileUrl: `/uploads/${req.file.filename}`,
