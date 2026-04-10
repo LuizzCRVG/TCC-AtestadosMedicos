@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:3001',
+    baseURL: 'https://cautious-doodle-59xv6q6vjw92797w-3001.app.github.dev',
     timeout: 5000,
 });
 
