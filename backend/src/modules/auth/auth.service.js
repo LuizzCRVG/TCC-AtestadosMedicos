@@ -70,17 +70,11 @@ async function loginUser(email, password) {
 // TAREFA DIA 3: Registro de Consentimento
 // ==========================================
 async function gravarConsentimento(dados) {
-    // Aqui nós usamos o Prisma para gravar na tabela ConsentAgreement.
-    // ATENÇÃO: Os nomes dos campos (userId, atestadoId, etc.) devem ser 
-    // EXATAMENTE os mesmos que estão definidos no seu arquivo schema.prisma!
-    // Se no seu schema estiver "usuario_id", troque "userId" para "usuario_id" abaixo.
-    
     const consentimento = await prisma.consentAgreement.create({
         data: {
             userId: dados.idUsuario,
-            atestadoId: dados.idAtestado,
-            ipAddress: dados.ipRequisicao,
-            termVersion: dados.versaoTermo,
+            consentVersion: dados.versaoTermo,  // nome correto do campo
+            ipAdress: dados.ipRequisicao,        // nome correto (com erro de digitação original do schema)
             acceptedAt: dados.timestamp
         }
     });

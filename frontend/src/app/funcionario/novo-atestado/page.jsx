@@ -162,7 +162,7 @@ export default function EnviarAtestado() {
               value={formData.observacoes}
               onChange={handleInputChange}
               placeholder="Informações adicionais que queira adicionar..."
-              className="w-full p-3 border border-gray-300 rounded-md text-sm min-h-[120px] resize-y outline-none focus:border-[#00a8ac] focus:ring-1 focus:ring-[#00a8ac] transition"
+              className="w-full p-3 border border-gray-300 rounded-md text-sm min-h-30 resize-y outline-none focus:border-[#00a8ac] focus:ring-1 focus:ring-[#00a8ac] transition"
             ></textarea>
           </div>
 
