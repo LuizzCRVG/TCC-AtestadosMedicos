@@ -56,7 +56,7 @@ export default function Cadastro() {
     }
 
     return (
-        <div className="flex h-screen">
+        <div className="flex h-screen font-sans">
 
             <div className="w-1/2 bg-[#e4fcfc] flex items-center justify-center">
                 <img src="/FotoInicio.png" alt="Ilustracao" className="w-3/4" />
@@ -108,7 +108,7 @@ export default function Cadastro() {
                     <button
                         onClick={handleCadastro}
                         disabled={isLoading}
-                        className="bg-[#1a9e9e] text-white py-2 rounded text-sm font-medium hover:bg-[#1a6b6b] transition-colors disabled:opacity-70"
+                        className="bg-[#1a9e9e] text-white py-2 rounded text-sm font-medium hover:bg-[#1a6b6b] transition-colors disabled:opacity-70 cursor-pointer"
                     >
                         {isLoading ? 'Cadastrando...' : 'Cadastrar-se'}
                     </button>

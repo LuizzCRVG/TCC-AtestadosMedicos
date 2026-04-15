@@ -8,6 +8,7 @@ import api from '@/services/api';
 
 export default function Dashboard() {
   // 1. Definição dos Estados da Tela
+  const [userName, setUserName] = useState('');
   const [atestados, setAtestados] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,6 +26,8 @@ export default function Dashboard() {
 
         const response = await api.get('/certificates');
         setAtestados(response.data);
+        const meResponse = await api.get('/auth/me');
+        setUserName(meResponse.data.name)
         setIsLoading(false);
 
       } catch (err) {
@@ -49,7 +52,7 @@ export default function Dashboard() {
 
         {/* --- CARD 1: Resumo Dinâmico --- */}
         <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-          <h1 className="text-3xl font-normal text-gray-900">Olá, Usuário.</h1>
+        <h1 className="text-3xl font-normal text-gray-900">Olá, {userName || 'Usuário'}.</h1>
           <p className="text-sm text-gray-500 mt-2 mb-6">Aqui está um resumo dos seus atestados.</p>
           <hr className="border-gray-200 mb-6" />
 

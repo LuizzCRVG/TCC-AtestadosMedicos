@@ -12,6 +12,7 @@ export default function EnviarAtestado() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState(null);
+  const [dateError, setDateError] = useState('');
 
   // Estado para os campos de texto e data
   const [formData, setFormData] = useState({
@@ -25,7 +26,26 @@ export default function EnviarAtestado() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    // CRM: só permite dígitos
+    if (name === 'crm') {
+      const apenasNumeros = value.replace(/\D/g, '');
+      setFormData(prev => ({ ...prev, [name]: apenasNumeros }));
+      return;
+    }
+
     setFormData(prev => ({ ...prev, [name]: value }));
+
+    // Valida datas ao alterar qualquer campo de data
+    if (name === 'dataTermino' || name === 'dataInicio') {
+      const inicio = name === 'dataInicio' ? value : formData.dataInicio;
+      const termino = name === 'dataTermino' ? value : formData.dataTermino;
+      if (inicio && termino && new Date(termino) < new Date(inicio)) {
+        setDateError('A data de término não pode ser anterior à data de início.');
+      } else {
+        setDateError('');
+      }
+    }
   };
 
   const handleFileChange = (e) => {
@@ -42,16 +62,21 @@ export default function EnviarAtestado() {
       return;
     }
 
+    if (dateError) {
+      alert(dateError);
+      return;
+    }
+
     setIsLoading(true);
 
     try {
       const data = new FormData();
-        data.append('file', file);
-        data.append('startDate', formData.dataInicio);
-        data.append('crmNumber', formData.crm);
-        data.append('motivo', formData.motivo);
-        data.append('nomeMedico', formData.nomeMedico);
-        data.append('observacoes', formData.observacoes);
+      data.append('file', file);
+      data.append('startDate', formData.dataInicio);
+      data.append('crmNumber', formData.crm);
+      data.append('motivo', formData.motivo);
+      data.append('nomeMedico', formData.nomeMedico);
+      data.append('observacoes', formData.observacoes);
 
       const inicio = new Date(formData.dataInicio);
       const termino = new Date(formData.dataTermino);
@@ -63,7 +88,7 @@ export default function EnviarAtestado() {
       });
 
       alert('Atestado enviado com sucesso!');
-      router.push('/funcionario/meus-atestados'); 
+      router.push('/funcionario/meus-atestados');
 
     } catch (error) {
       console.error("Erro no envio:", error);
@@ -75,7 +100,7 @@ export default function EnviarAtestado() {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 font-sans flex flex-col">
-      
+
       {/* Componente NavBar inserido no lugar do header solto */}
       <NavBar />
 
@@ -149,7 +174,8 @@ export default function EnviarAtestado() {
                 name="crm"
                 value={formData.crm}
                 onChange={handleInputChange}
-                placeholder="CRM/UF"
+                placeholder="Somente números"
+                inputMode="numeric"
                 className="w-full p-3 border border-gray-300 rounded-md text-sm outline-none focus:border-[#00a8ac] focus:ring-1 focus:ring-[#00a8ac] transition"
               />
             </div>

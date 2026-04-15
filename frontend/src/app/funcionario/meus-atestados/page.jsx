@@ -125,7 +125,7 @@ export default function MeusAtestados() {
                                         {atestado.fileUrl ? (
                                             <a 
                                                 // O backend salva o caminho do arquivo em atestado.fileUrl
-                                                href={`http://localhost:3000${atestado.fileUrl}`} 
+                                                href={atestado.fileUrl} 
                                                 target="_blank" 
                                                 rel="noreferrer"
                                                 className="flex items-center gap-2 text-sm text-[#00a8ac] font-medium hover:underline bg-[#00a8ac] bg-opacity-10 px-4 py-2 rounded-md transition-colors"

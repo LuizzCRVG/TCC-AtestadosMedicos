@@ -9,6 +9,7 @@ export default function AdminAtestados() {
   const [atestados, setAtestados] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filtraNome, setFiltraNome] = useState('');
 
   // Estado para o Filtro do Dev 5 (Todos, Pendentes, Aprovados, Recusados)
   const [filtroAtual, setFiltroAtual] = useState('TODOS');
@@ -46,8 +47,10 @@ export default function AdminAtestados() {
 
   // Aplicação do Filtro no Frontend
   const atestadosFiltrados = atestados.filter(atestado => {
-    if (filtroAtual === 'TODOS') return true;
-    return atestado.status === filtroAtual;
+    const passaStatus = filtroAtual === 'TODOS' || atestado.status === filtroAtual;
+    const nome = atestado.user?.name?.toLowerCase() || '';
+    const passaNome = filtraNome === '' || nome.includes(filtraNome.toLowerCase());
+    return passaStatus && passaNome;
   });
 
   // Cálculos para os Cards de Resumo
@@ -66,6 +69,14 @@ export default function AdminAtestados() {
           <h1 className="text-3xl font-normal text-gray-900">Visão Geral do RH</h1>
           <p className="text-sm text-gray-500 mt-2 mb-6">Acompanhe e gerencie todos os atestados da empresa.</p>
           <hr className="border-gray-200 mb-6" />
+
+          <input
+            type="text"
+            placeholder="Buscar por nome do funcionário..."
+            value={filtraNome}
+            onChange={(e) => setFiltraNome(e.target.value)}
+            className="border border-gray-200 rounded-md px-4 py-2 text-sm outline-none focus:border-[#1a9e9e] w-full md:w-72"
+          />
 
           <div className="flex gap-12">
             <div className="flex flex-col">

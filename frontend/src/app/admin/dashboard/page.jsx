@@ -36,7 +36,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
       <NavBarAdmin />
 
-      <main className="flex-1 w-full max-w-6xl mx-auto px-6 py-10 flex flex-col gap-8">
+      <main className="flex-1 w-full px-6 py-10 flex flex-col gap-8">
 
         {/* Cabeçalho da Página */}
         <div>

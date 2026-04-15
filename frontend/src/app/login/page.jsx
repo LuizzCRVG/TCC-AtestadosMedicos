@@ -34,7 +34,7 @@ export default function Login() {
     }
 
     return (
-        <div className="flex h-screen">
+        <div className="flex h-screen font-sans">
 
             <div className="w-1/2 flex flex-col items-center justify-center">
 
@@ -67,7 +67,7 @@ export default function Login() {
                     <button
                         onClick={handleLogin}
                         disabled={isLoading}
-                        className="bg-[#1a9e9e] text-white py-2 rounded text-sm font-medium hover:bg-[#1a6b6b] transition-colors disabled:opacity-70"
+                        className="bg-[#1a9e9e] text-white py-2 rounded text-sm font-medium hover:bg-[#1a6b6b] transition-colors disabled:opacity-70 cursor-pointer"
                     >
                         {isLoading ? 'Entrando...' : 'Login'}
                     </button>
